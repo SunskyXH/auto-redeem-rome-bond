@@ -66,8 +66,8 @@ const RomeStakingContract = RomeStaking__factory.connect(
   }} blocks.
     `);
   } else {
-    const pk = process.env.PRIVATE_KEY || "";
-    if (!pk) {
+    const mnemonic = process.env.MNEMONIC || "";
+    if (!mnemonic) {
       console.log(chalk`
   -- No Private Key Found --
   You can visit {underline.yellow  https://romedao.finance/bond/} to claim your sROME.
@@ -76,8 +76,8 @@ const RomeStakingContract = RomeStaking__factory.connect(
       console.log(chalk`
   -- Start Redeem --
     `);
-      const walletPK = ethers.Wallet.fromMnemonic(pk);
-      const wallet = walletPK.connect(provider);
+      const walletMnemonic = ethers.Wallet.fromMnemonic(mnemonic);
+      const wallet = walletMnemonic.connect(provider);
       gOHM_BounContract.connect(wallet);
       const tx = await gOHM_BounContract.redeem(WALLET_ADDRESS, true);
       console.log(`Redeeming... hash: ${chalk.underline.green(tx.hash)}`);
